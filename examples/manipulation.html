@@ -418,8 +418,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fragmentation">Fragmentation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functionalisation">Functionalisation</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fragmentation">Fragmentation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">molfunc</a></li>
 </ul>
 </li>
@@ -462,27 +461,6 @@ H•</p>
 <span class="go">Atoms(n_atoms=1, [Atom(H, -0.6577, -0.8481, -0.3214)])</span>
 </pre></div>
 </div>
-</section>
-<section id="functionalisation">
-<h2>Functionalisation<a class="headerlink" href="#functionalisation" title="Link to this heading">#</a></h2>
-<img alt="../_images/functionalisation.png" src="../_images/functionalisation.png" />
-<p>Swapping fragments on a structure (e.g. H → Me) can be achieved using SMILES
-concatenation. For example to stitch two methyl fragments to generate an
-ethane molecule</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ethane</span> <span class="o">=</span> <span class="n">ade</span><span class="o">.</span><span class="n">Molecule</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;C2H6&#39;</span><span class="p">,</span> <span class="n">smiles</span><span class="o">=</span><span class="s1">&#39;C%99.C%99&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ethane</span><span class="o">.</span><span class="n">n_atoms</span>
-<span class="go">8</span>
-</pre></div>
-</div>
-<p>Multiple fragments can be added to the same core by specifying multiple sites
-on a single atom</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">propane</span> <span class="o">=</span> <span class="n">ade</span><span class="o">.</span><span class="n">Molecule</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;C3H8&#39;</span><span class="p">,</span> <span class="n">smiles</span><span class="o">=</span><span class="s1">&#39;C</span><span class="si">%99%</span><span class="s1">98.C%99.C%98&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">propane</span><span class="o">.</span><span class="n">n_atoms</span>
-<span class="go">11</span>
-</pre></div>
-</div>
-<p>This method regenerates the whole structure which may not be desirable if the
-molecule is a transition state (TS) or a particular conformation of interest.</p>
 <section id="id1">
 <h3>molfunc<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>Adding a fragment to a fixed core structure can be achieved with
@@ -490,12 +468,43 @@ molecule is a transition state (TS) or a particular conformation of interest.</p
 with: <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">molfunc</span></code>. <strong>molfunc</strong> requires a xyz file to
 initialise a molecule and indexes atoms from 1 so that atom 2 is the first
 hydrogen atom in methane</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">molfunc</span><span class="w"> </span><span class="kn">import</span> <span class="n">CoreMolecule</span><span class="p">,</span> <span class="n">CombinedMolecule</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">methane</span><span class="o">.</span><span class="n">print_xyz_file</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">methane_core</span> <span class="o">=</span> <span class="n">CoreMolecule</span><span class="p">(</span><span class="n">xyz_filename</span><span class="o">=</span><span class="s1">&#39;CH4.xyz&#39;</span><span class="p">,</span> <span class="n">atoms_to_del</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ethane</span> <span class="o">=</span> <span class="n">CombinedMolecule</span><span class="p">(</span><span class="n">methane_core</span><span class="p">,</span> <span class="n">frag_smiles</span><span class="o">=</span><span class="s1">&#39;C[*]&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;C2H6&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ethane</span><span class="o">.</span><span class="n">n_atoms</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">molfunc</span><span class="w"> </span><span class="kn">import</span> <span class="n">print_combined_molecule</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">print_combined_molecule</span><span class="p">(</span><span class="n">core_xyz_filename</span><span class="o">=</span><span class="s1">&#39;CH4.xyz&#39;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>          <span class="n">atoms_to_del</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+<span class="gp">&gt;&gt;&gt; </span>          <span class="n">frag_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Me&#39;</span><span class="p">],</span>
+<span class="gp">&gt;&gt;&gt; </span>          <span class="n">name</span><span class="o">=</span><span class="s1">&#39;C2H6&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>          <span class="n">ethane</span> <span class="o">=</span> <span class="n">ade</span><span class="o">.</span><span class="n">Molecule</span><span class="p">(</span><span class="s1">&#39;C2H6.xyz&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>          <span class="n">ethane</span><span class="o">.</span><span class="n">n_atoms</span>
 <span class="go">8</span>
+</pre></div>
+</div>
+<p>Another way of computing multiple changes on any molecule would be</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">molfunc</span><span class="w"> </span><span class="kn">import</span> <span class="n">print_combined_molecule</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fragments</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="s2">&quot;NMe2&quot;</span><span class="p">:</span> <span class="s2">&quot;CN([*])C&quot;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="s2">&quot;NH2&quot;</span><span class="p">:</span>  <span class="s2">&quot;N[*]&quot;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="s2">&quot;OH&quot;</span><span class="p">:</span>   <span class="s2">&quot;O[*]&quot;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="s2">&quot;Me&quot;</span><span class="p">:</span>   <span class="s2">&quot;C[*]&quot;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="s2">&quot;F&quot;</span><span class="p">:</span>    <span class="s2">&quot;F[*]&quot;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">core_xyz</span> <span class="o">=</span> <span class="s2">&quot;CH4.xyz&quot;</span>   <span class="c1"># methane</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">smiles</span> <span class="ow">in</span> <span class="n">fragments</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">out_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;CH3_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Building </span><span class="si">{</span><span class="n">out_name</span><span class="si">}</span><span class="s2">.xyz&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">print_combined_molecule</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">core_xyz_filename</span><span class="o">=</span><span class="n">core_xyz</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">atoms_to_del</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>          <span class="c1">#  fresh list EVERY time</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">frag_smiles</span><span class="o">=</span><span class="p">[</span><span class="n">smiles</span><span class="p">],</span>      <span class="c1">#  only SMILES, no frag_names</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">name</span><span class="o">=</span><span class="n">out_name</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">)</span>
 </pre></div>
 </div>
 <p>A set of fragments can be iterated through using <strong>molfunc</strong> to generate a
@@ -570,8 +579,7 @@ library rapidly e.g.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fragmentation">Fragmentation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functionalisation">Functionalisation</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fragmentation">Fragmentation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">molfunc</a></li>
 </ul>
 </li>
