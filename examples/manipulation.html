@@ -472,9 +472,10 @@ hydrogen atom in methane</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">print_combined_molecule</span><span class="p">(</span><span class="n">core_xyz_filename</span><span class="o">=</span><span class="s1">&#39;CH4.xyz&#39;</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span>          <span class="n">atoms_to_del</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
 <span class="gp">&gt;&gt;&gt; </span>          <span class="n">frag_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Me&#39;</span><span class="p">],</span>
-<span class="gp">&gt;&gt;&gt; </span>          <span class="n">name</span><span class="o">=</span><span class="s1">&#39;C2H6&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span>          <span class="n">ethane</span> <span class="o">=</span> <span class="n">ade</span><span class="o">.</span><span class="n">Molecule</span><span class="p">(</span><span class="s1">&#39;C2H6.xyz&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span>          <span class="n">ethane</span><span class="o">.</span><span class="n">n_atoms</span>
+<span class="gp">&gt;&gt;&gt; </span>          <span class="n">name</span><span class="o">=</span><span class="s1">&#39;C2H6&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ethane</span> <span class="o">=</span> <span class="n">ade</span><span class="o">.</span><span class="n">Molecule</span><span class="p">(</span><span class="s1">&#39;C2H6.xyz&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ethane</span><span class="o">.</span><span class="n">n_atoms</span>
 <span class="go">8</span>
 </pre></div>
 </div>
@@ -496,15 +497,15 @@ hydrogen atom in methane</p>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">smiles</span> <span class="ow">in</span> <span class="n">fragments</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
 <span class="gp">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">out_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;CH3_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Building </span><span class="si">{</span><span class="n">out_name</span><span class="si">}</span><span class="s2">.xyz&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>  <span class="n">out_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;CH3_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span>  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Building </span><span class="si">{</span><span class="n">out_name</span><span class="si">}</span><span class="s2">.xyz&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">print_combined_molecule</span><span class="p">(</span>
-<span class="gp">&gt;&gt;&gt; </span>        <span class="n">core_xyz_filename</span><span class="o">=</span><span class="n">core_xyz</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>        <span class="n">atoms_to_del</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>          <span class="c1">#  fresh list EVERY time</span>
-<span class="gp">&gt;&gt;&gt; </span>        <span class="n">frag_smiles</span><span class="o">=</span><span class="p">[</span><span class="n">smiles</span><span class="p">],</span>      <span class="c1">#  only SMILES, no frag_names</span>
-<span class="gp">&gt;&gt;&gt; </span>        <span class="n">name</span><span class="o">=</span><span class="n">out_name</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>  <span class="n">print_combined_molecule</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">core_xyz_filename</span><span class="o">=</span><span class="n">core_xyz</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">atoms_to_del</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>          <span class="c1">#  fresh list EVERY time</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">frag_smiles</span><span class="o">=</span><span class="p">[</span><span class="n">smiles</span><span class="p">],</span>      <span class="c1">#  only SMILES, no frag_names</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">name</span><span class="o">=</span><span class="n">out_name</span>
+<span class="gp">&gt;&gt;&gt; </span>  <span class="p">)</span>
 </pre></div>
 </div>
 <p>A set of fragments can be iterated through using <strong>molfunc</strong> to generate a
