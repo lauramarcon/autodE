@@ -58,29 +58,29 @@ Another way of computing multiple changes on any molecule would be
 
 .. code-block:: python
 
->>> from molfunc import print_combined_molecule
->>>
->>> fragments = {
->>>     "NMe2": "CN([*])C",
->>>     "NH2":  "N[*]",
->>>     "OH":   "O[*]",
->>>     "Me":   "C[*]",
->>>     "F":    "F[*]",
->>> }
->>>
->>> core_xyz = "CH4.xyz"   # methane
->>>
->>> for name, smiles in fragments.items():
->>>
->>>   out_name = f"CH3_{name}"
->>>   print(f"Building {out_name}.xyz")
->>>
->>>   print_combined_molecule(
->>>     core_xyz_filename=core_xyz,
->>>     atoms_to_del=[2],          #  fresh list EVERY time
->>>     frag_smiles=[smiles],      #  only SMILES, no frag_names
->>>     name=out_name
->>>   )
+  >>> from molfunc import print_combined_molecule
+  >>>
+  >>> fragments = {
+  >>>     "NMe2": "CN([*])C",
+  >>>     "NH2":  "N[*]",
+  >>>     "OH":   "O[*]",
+  >>>     "Me":   "C[*]",
+  >>>     "F":    "F[*]",
+  >>> }
+  >>>
+  >>> core_xyz = "CH4.xyz"   # methane
+  >>>
+  >>> for name, smiles in fragments.items():
+  >>>
+  >>>     out_name = f"CH3_{name}"
+  >>>     print(f"Building {out_name}.xyz")
+  >>>
+  >>>     print_combined_molecule(
+  >>>       core_xyz_filename=core_xyz,
+  >>>       atoms_to_del=[2],          #  fresh list EVERY time
+  >>>       frag_smiles=[smiles],      #  only SMILES, no frag_names
+  >>>       name=out_name
+  >>>     )
 
 
 A set of fragments can be iterated through using **molfunc** to generate a
