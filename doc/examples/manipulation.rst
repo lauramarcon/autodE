@@ -49,7 +49,7 @@ hydrogen atom in methane
   >>>   	atoms_to_del=[2],
   >>>   	frag_names=['Me'],
   >>>   	name='C2H6'
-  >>> )   
+  >>> )
   >>> ethane = ade.Molecule('C2H6.xyz')
   >>> ethane.n_atoms
   8
